@@ -1,0 +1,28 @@
+table {
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+
+main {
+    padding: 1rem 0;
+}
+
+.name-col {
+    max-width: 15em;
+}
+
+.search-panel {
+    display: grid;
+    width: min-content;
+}
+
+.search-panel__input_block {
+    display: flex;
+}

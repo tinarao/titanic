@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="stylesheet" href="src/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>titanic_passengers</title>
+</head>
+
+<body>
+
+    <header>
+        <div class="search-panel">
+            <label for="search-input">
+                Имя пассажира
+            </label>
+            <div class="search-panel__input_block">
+                <input id="search-input" />
+                <button id="find-button">Найти</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>имя</th>
+                    <th>пол</th>
+                    <th>выжил?</th>
+                    <th>возраст</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+            </tbody>
+        </table>
+        <div id="observer-anchor"></div>
+    </main>
+
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
