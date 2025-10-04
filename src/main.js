@@ -83,11 +83,16 @@ function renderBatch() {
   );
 
   nextPassengers.forEach((psg) => {
+    if (!psg.name) return;
     const row = document.createElement("tr");
 
     row.innerHTML = `
         <td>${psg.id}</td>
-        <td class="name-col">${psg.name}</td>
+        <td>
+            ${psg.name}
+            <br /> 
+            <span class="ticket-badge">${psg.ticket}</span> 
+        </td>
         <td>${psg.gender === "female" ? "F" : "M"}</td>
         <td>${psg.survived ? "Yes" : "No"}</td>
         <td>${Math.floor(psg.age)}</td>
@@ -104,12 +109,15 @@ async function main() {
   allData = await fetchData();
   currentData = allData;
 
-  const observer = new IntersectionObserver(renderBatch);
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting && currentIndex < currentData.length) {
+      renderBatch();
+    }
+  });
   const anchor = document.querySelector("#observer-anchor");
   if (!anchor) throw "No anchor";
 
   observer.observe(anchor);
-  renderBatch();
 }
 
 main();

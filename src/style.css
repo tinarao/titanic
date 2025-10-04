@@ -1,34 +1,95 @@
+:root {
+    --bg: #242424;
+    --fg: #FDF6F6;
+    --accent: #636262;
+}
+
 * {
     font-family: "Nunito", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
 }
 
+body {
+    background: var(--bg);
+    color: var(--fg);
+    border-color: var(--accent);
+}
+
 table {
     table-layout: fixed;
     border-collapse: collapse;
+    margin: auto;
 }
 
 th,
 td {
-    border: 1px solid black;
-    padding: 8px;
+    border: 1px solid var(--accent);
+    padding: .4rem;
     text-align: left;
 }
 
-main {
-    padding: 1rem 0;
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10rem;
+}
+
+button {
+    border: none;
+    border-radius: .2em;
+    padding: .4em .8em;
+    font-weight: 700;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    max-height: 100vh;
+}
+
+#reset-form-button {
+    background: #ff3333;
+    color: white;
+}
+
+#search-form {
+    margin: auto 0;
+    margin-bottom: 2rem;
+}
+
+#data-table {
+    width: fit-content;
+}
+
+#table-wrapper {
+    overflow: scroll;
+}
+
+#observer-anchor {
+    height: 80px;
+}
+
+.inputs-group {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .5em;
+}
+
+.input-block {
+    display: grid;
+}
+
+.id-col {
+    width: 4rem;
 }
 
 .name-col {
-    max-width: 15em;
+    width: 40rem;
 }
 
-.search-panel {
-    display: grid;
-    width: min-content;
-}
-
-.search-panel__input_block {
-    display: flex;
+.ticket-badge {
+    font-size: .8rem;
+    font-weight: 700;
 }
