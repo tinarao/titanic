@@ -12,5 +12,5 @@
 ```sh
 https://github.com/tinarao/titanic.git
 cd titanic
-npm i && npm build && npm run preview 
+npm i && npm run build && npm run preview 
 ```
