@@ -4,6 +4,7 @@
     --accent: #636262;
 }
 
+
 * {
     font-family: "Nunito", sans-serif;
     font-optical-sizing: auto;
@@ -22,9 +23,29 @@ table {
     margin: auto;
 }
 
+thead {
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 1;
+    will-change: transform;
+}
+
+thead::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: var(--accent);
+}
+
 th,
 td {
-    border: 1px solid var(--accent);
+    border: 0;
+    border-bottom: 1px solid var(--accent);
+    border-right: 1px solid var(--accent);
     padding: .4rem;
     text-align: left;
 }
@@ -64,12 +85,15 @@ button {
 }
 
 #table-wrapper {
-    overflow: scroll;
+    height: 700px;
+    overflow: auto;
 }
 
 #observer-anchor {
-    height: 80px;
+    /* height: 80px; */
+    background: red;
 }
+
 
 .inputs-group {
     display: grid;
