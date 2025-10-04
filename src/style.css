@@ -15,6 +15,7 @@ body {
     background: var(--bg);
     color: var(--fg);
     border-color: var(--accent);
+    margin: 0;
 }
 
 table {
@@ -67,7 +68,9 @@ button {
 #container {
     display: flex;
     flex-direction: column;
-    max-height: 100vh;
+    height: 100vh;
+    width: fit-content;
+    margin: 0 auto;
 }
 
 #reset-form-button {
