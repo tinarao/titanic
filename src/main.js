@@ -2,10 +2,7 @@ const batchSize = 100;
 const DATA_URL =
   "https://raw.githubusercontent.com/altkraft/for-applicants/master/frontend/titanic/passengers.json";
 
-/** @type {Passenger[]} */
 let allData = [];
-
-/** @type {Passenger[]} */
 let currentData = [];
 let currentIndex = 0;
 
@@ -51,7 +48,7 @@ function handleSubmitSearchForm(e) {
       return false;
     }
 
-    if (criteria.age !== null && Math.floor(psg.age !== criteria.age)) {
+    if (criteria.age !== null && Math.floor(psg.age) !== criteria.age) {
       return false;
     }
 
