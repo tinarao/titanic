@@ -2,14 +2,67 @@ const batchSize = 100;
 const DATA_URL =
   "https://raw.githubusercontent.com/altkraft/for-applicants/master/frontend/titanic/passengers.json";
 
+/** @type {Passenger[]} */
 let allData = [];
+
+/** @type {Passenger[]} */
+let currentData = [];
 let currentIndex = 0;
 
-const button = document.querySelector("#find-button");
-const searchInput = document.querySelector("#search-input");
 const tableBody = document.querySelector("#table-body");
+const tableCaption = document.querySelector("#table-caption");
+const searchForm = document.querySelector("#search-form");
+const resetFormButton = document.querySelector("#reset-form-button");
 
-button.onclick = handleSearch;
+searchForm.addEventListener("submit", handleSubmitSearchForm);
+resetFormButton.addEventListener("click", handleResetFormState);
+
+function handleResetFormState(_e) {
+  clearTableState();
+  searchForm.reset();
+  currentData = allData;
+  renderBatch();
+}
+
+function handleSubmitSearchForm(e) {
+  e.preventDefault();
+
+  const formData = new FormData(searchForm);
+  const criteria = {
+    name: formData.get("name").trim() || "",
+    survived: formData.get("survived") === "on",
+    gender: formData.get("gender"),
+    age: formData.get("age") ? parseInt(formData.get("age")) : null,
+  };
+
+  const results = allData.filter((psg) => {
+    if (
+      criteria.name &&
+      !psg.name.toLowerCase().includes(criteria.name.toLowerCase())
+    ) {
+      return false;
+    }
+
+    if (criteria.survived && !psg.survived) {
+      return false;
+    }
+
+    if (criteria.gender !== "any" && psg.gender !== criteria.gender) {
+      return false;
+    }
+
+    if (criteria.age !== null && Math.floor(psg.age !== criteria.age)) {
+      return false;
+    }
+
+    return true;
+  });
+
+  currentData = results;
+
+  clearTableState();
+  renderBatch();
+}
 
 async function fetchData() {
   const response = await fetch(DATA_URL);
@@ -21,26 +74,13 @@ function clearTableState() {
   tableBody.innerHTML = "";
 }
 
-function handleSearch() {
-  clearTableState();
-  let query = searchInput.value;
-  if (!query) {
-    renderBatch(allData);
-    return;
-  }
-
-  query = query.trim().toLowerCase();
-
-  const results = allData.filter((psg) =>
-    psg.name.toLowerCase().includes(query),
-  );
-
-  renderBatch(results);
-}
-
-function renderBatch(data) {
+function renderBatch() {
+  tableCaption.innerHTML = `Total: ${currentData.length}`;
   const fragment = document.createDocumentFragment();
-  const nextPassengers = data.slice(currentIndex, currentIndex + batchSize);
+  const nextPassengers = currentData.slice(
+    currentIndex,
+    currentIndex + batchSize,
+  );
 
   nextPassengers.forEach((psg) => {
     const row = document.createElement("tr");
@@ -48,8 +88,8 @@ function renderBatch(data) {
     row.innerHTML = `
         <td>${psg.id}</td>
         <td class="name-col">${psg.name}</td>
-        <td>${psg.gender}</td>
-        <td>${psg.survived}</td>
+        <td>${psg.gender === "female" ? "F" : "M"}</td>
+        <td>${psg.survived ? "Yes" : "No"}</td>
         <td>${Math.floor(psg.age)}</td>
         `;
 
@@ -62,13 +102,14 @@ function renderBatch(data) {
 
 async function main() {
   allData = await fetchData();
+  currentData = allData;
 
   const observer = new IntersectionObserver(renderBatch);
   const anchor = document.querySelector("#observer-anchor");
   if (!anchor) throw "No anchor";
 
   observer.observe(anchor);
-  renderBatch(allData);
+  renderBatch();
 }
 
 main();

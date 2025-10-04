@@ -16,26 +16,48 @@
 <body>
 
     <header>
-        <div class="search-panel">
-            <label for="search-input">
-                Имя пассажира
-            </label>
-            <div class="search-panel__input_block">
-                <input id="search-input" />
-                <button id="find-button">Найти</button>
+        <form id="search-form">
+            <div>
+                <label for="name-search-input">
+                    Name
+                </label>
+                <input id="name-search-input" name="name" />
             </div>
-        </div>
+            <div>
+                <input type="checkbox" name="survived">
+                <label for="survived-search-input">
+                    Show only survived
+                </label>
+            </div>
+            <div>
+                <label for="gender-search-input">Gender</label>
+                <select name="gender" id="gender-select">
+                    <option value="any">Any</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            <div>
+                <label for="survived-search-input">
+                    Age
+                </label>
+                <input type="number" name="age">
+            </div>
+            <button type="submit">Find</button>
+            <button type="button" id="reset-form-button">Reset</button>
+        </form>
     </header>
 
     <main>
         <table class="data-table">
+            <caption id="table-caption"></caption>
             <thead>
                 <tr>
-                    <th>id</th>
-                    <th>имя</th>
-                    <th>пол</th>
-                    <th>выжил?</th>
-                    <th>возраст</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Survived?</th>
+                    <th>Age</th>
                 </tr>
             </thead>
             <tbody id="table-body">
